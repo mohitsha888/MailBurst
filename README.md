@@ -145,5 +145,5 @@ This project is currently unlicensed. Future licensing decisions will be updated
 For questions or feedback, reach out:
 
 - **Name**: Mohit Sharma
-- **Email**: [your-email@example.com](mailto:your-email@example.com)
+- **Email**: [themohitsha@gmail.com](mailto:themohitsha@gmail.com)
 - **GitHub**: [mohitsha888](https://github.com/mohitsha888)
