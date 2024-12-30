@@ -1,0 +1,90 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MailBurst{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-light: #ffffff;
+            --bg-secondary: #f3f4f6;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+        }
+
+        .sidebar {
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            background-color: var(--bg-light);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .card {
+            background-color: var(--bg-light);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="sidebar w-64 h-full flex flex-col">
+            <div class="p-4 border-b">
+                <h1 class="text-xl font-bold text-primary">MailBurst</h1>
+            </div>
+            <nav class="flex-1 p-4">
+                <ul class="space-y-2">
+                    <li><a href="{% url 'dashboard' %}" class="nav-link block px-4 py-2 rounded-lg">Dashboard</a></li>
+                    <li><a href="{% url 'send_email' %}" class="nav-link block px-4 py-2 rounded-lg">Send Email</a></li>
+                    <li><a href="{% url 'schedule_email' %}" class="nav-link block px-4 py-2 rounded-lg">Schedule</a></li>
+                    <li><a href="{% url 'email_template' %}" class="nav-link block px-4 py-2 rounded-lg">Templates</a></li>
+                </ul>
+            </nav>
+            <div class="p-4 border-t">
+                {% if user.is_authenticated %}
+                    <span class="text-sm">{{ user.email }}</span>
+                    <a href="{% url 'logout' %}" class="text-sm text-red-500 ml-3">Logout</a>
+                {% endif %}
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto">
+            <header class="bg-white border-b p-4">
+                <h2 class="text-xl">{% block header %}{% endblock %}</h2>
+            </header>
+            <div class="p-6">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+</body>
+</html>

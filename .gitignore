@@ -1,0 +1,47 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*$py.class
+*.so
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+static/
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# Editor Files
+.vscode/
+*.code-workspace
+.idea/
+*.swp
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Database Backups
+*.dump
+*.sql
+
+# OS-Specific
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Node.js (if applicable)
+node_modules/
+
+# Git
+.git/

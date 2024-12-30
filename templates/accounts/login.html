@@ -1,0 +1,25 @@
+<!-- templates/login.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-md mx-auto">
+    <div class="card rounded-lg p-8">
+        <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            <div>
+                <label class="block text-sm mb-1">Email</label>
+                <input type="email" name="email" class="w-full px-3 py-2 border rounded-lg">
+            </div>
+            <div>
+                <label class="block text-sm mb-1">Password</label>
+                <input type="password" name="password" class="w-full px-3 py-2 border rounded-lg">
+            </div>
+            <button type="submit" class="w-full btn-primary py-2 rounded-lg">Login</button>
+        </form>
+        <p class="mt-4 text-center text-sm">
+            Don't have an account? <a href="{% url 'register' %}" class="text-primary">Register</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

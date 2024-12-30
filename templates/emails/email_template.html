@@ -1,0 +1,19 @@
+<!-- templates/email_template.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {% for template in templates %}
+    <div class="card rounded-lg p-6">
+        <h3 class="font-bold mb-2">{{ template.name }}</h3>
+        <p class="text-sm text-gray-500 mb-4">{{ template.description }}</p>
+        <div class="flex space-x-2">
+            <button class="text-primary text-sm">Edit</button>
+            <button class="text-red-500 text-sm">Delete</button>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="card rounded-lg p-6 border-dashed flex items-center justify-center">
+        <button class="text-primary">+ New Template</button>
+    </div>
+</div>

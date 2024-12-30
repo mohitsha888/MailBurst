@@ -1,0 +1,43 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <div class="card p-6 rounded-lg">
+        <h3 class="font-bold mb-2">Total Sent</h3>
+        <p class="text-3xl">1,234</p>
+    </div>
+    <div class="card p-6 rounded-lg">
+        <h3 class="font-bold mb-2">Open Rate</h3>
+        <p class="text-3xl">68.5%</p>
+    </div>
+    <div class="card p-6 rounded-lg">
+        <h3 class="font-bold mb-2">Click Rate</h3>
+        <p class="text-3xl">42.3%</p>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="card p-6 rounded-lg">
+        <h3 class="font-bold mb-4">Recent Campaigns</h3>
+        <div class="space-y-3">
+            {% for campaign in campaigns %}
+            <div class="flex justify-between items-center">
+                <span>{{ campaign.name }}</span>
+                <span class="text-sm text-gray-500">{{ campaign.date }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card p-6 rounded-lg">
+        <h3 class="font-bold mb-4">Scheduled Emails</h3>
+        <div class="space-y-3">
+            {% for email in scheduled_emails %}
+            <div class="flex justify-between items-center">
+                <span>{{ email.subject }}</span>
+                <span class="text-sm text-gray-500">{{ email.schedule_time }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
