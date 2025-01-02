@@ -19,13 +19,13 @@ from django.urls import path
 from django.contrib.auth.views import LogoutView
 
 from apps.core.views import dashboard
-from apps.emails.views import send_email, schedule_email, email_template
+from apps.emails.views import create_campaign, schedule_email, email_template
 from apps.accounts.views import register_view, login_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', dashboard, name='dashboard'),
-    path('emails/send/', send_email, name='send_email'),
+    path('emails/send/', create_campaign, name='create_campaign'),
     path('emails/schedule/', schedule_email, name='schedule_email'),
     path('emails/template/', email_template, name='email_template'),
     path('register/', register_view, name='register'),
