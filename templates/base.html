@@ -1,6 +1,7 @@
 <!-- templates/base.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +33,8 @@
             transition: all 0.2s;
         }
 
-        .nav-link:hover, .nav-link.active {
+        .nav-link:hover,
+        .nav-link.active {
             color: var(--primary);
             background-color: var(--bg-light);
         }
@@ -49,10 +51,11 @@
         .card {
             background-color: var(--bg-light);
             border: 1px solid var(--border-color);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
+
 <body>
     <div class="flex h-screen">
         <!-- Sidebar -->
@@ -63,15 +66,18 @@
             <nav class="flex-1 p-4">
                 <ul class="space-y-2">
                     <li><a href="{% url 'dashboard' %}" class="nav-link block px-4 py-2 rounded-lg">Dashboard</a></li>
-                    <li><a href="{% url 'send_email' %}" class="nav-link block px-4 py-2 rounded-lg">Send Email</a></li>
-                    <li><a href="{% url 'schedule_email' %}" class="nav-link block px-4 py-2 rounded-lg">Schedule</a></li>
-                    <li><a href="{% url 'email_template' %}" class="nav-link block px-4 py-2 rounded-lg">Templates</a></li>
+                    <li><a href="{% url 'create_campaign' %}" class="nav-link block px-4 py-2 rounded-lg">Send Email</a>
+                    </li>
+                    <li><a href="{% url 'schedule_email' %}" class="nav-link block px-4 py-2 rounded-lg">Schedule</a>
+                    </li>
+                    <li><a href="{% url 'email_template' %}" class="nav-link block px-4 py-2 rounded-lg">Templates</a>
+                    </li>
                 </ul>
             </nav>
             <div class="p-4 border-t">
                 {% if user.is_authenticated %}
-                    <span class="text-sm">{{ user.email }}</span>
-                    <a href="{% url 'logout' %}" class="text-sm text-red-500 ml-3">Logout</a>
+                <span class="text-sm">{{ user.email }}</span>
+                <a href="{% url 'logout' %}" class="text-sm text-red-500 ml-3">Logout</a>
                 {% endif %}
             </div>
         </aside>
@@ -86,5 +92,15 @@
             </div>
         </main>
     </div>
+    <div>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
 </body>
+
 </html>

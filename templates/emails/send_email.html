@@ -1,33 +1,25 @@
-<!-- templates/send_email.html -->
+<!-- create_campaign.html -->
 {% extends 'base.html' %}
 
 {% block content %}
 <div class="max-w-4xl mx-auto">
     <div class="card rounded-lg p-6">
-        <form method="post" class="space-y-6">
+        <form method="post">
             {% csrf_token %}
             <div>
-                <label class="block text-sm mb-1">To:</label>
-                <select class="w-full px-3 py-2 border rounded-lg">
-                    <option>Select Recipients</option>
-                </select>
-            </div>
-            <div>
                 <label class="block text-sm mb-1">Subject:</label>
-                <input type="text" class="w-full px-3 py-2 border rounded-lg">
-            </div>
-            <div>
-                <label class="block text-sm mb-1">Template:</label>
-                <select class="w-full px-3 py-2 border rounded-lg">
-                    <option>Select Template</option>
-                </select>
+                <input type="text" name="subject" class="w-full px-3 py-2 border rounded-lg" placeholder="Enter Subject" required>
             </div>
             <div>
                 <label class="block text-sm mb-1">Content:</label>
-                <textarea class="w-full h-64 px-3 py-2 border rounded-lg"></textarea>
+                <textarea name="content" class="w-full h-64 px-3 py-2 border rounded-lg" placeholder="Enter email content" required></textarea>
+            </div>
+            <div>
+                <label class="block text-sm mb-1">Recipient List (comma-separated):</label>
+                <input type="text" name="recipient_list" class="w-full px-3 py-2 border rounded-lg" placeholder="e.g. email1@example.com,email2@example.com" required>
             </div>
             <div class="flex justify-end space-x-3">
-                <button type="submit" class="btn-primary px-6 py-2 rounded-lg">Send Now</button>
+                <button type="submit" class="btn-primary px-6 py-2 rounded-lg">Send Campaign</button>
             </div>
         </form>
     </div>
