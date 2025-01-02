@@ -23,11 +23,11 @@ class EmailCampaign(models.Model):
 
     subject = models.CharField(max_length=200)
     content = models.TextField()
-    template = models.ForeignKey(EmailTemplate, null=True, blank=True, on_delete=models.SET_NULL)
-    contact_list = models.ForeignKey(ContactList, on_delete=models.CASCADE)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    #template = models.ForeignKey(EmailTemplate, null=True, blank=True, on_delete=models.SET_NULL)
+    #contact_list = models.ForeignKey(ContactList, on_delete=models.CASCADE)
+    #owner = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
-    schedule_time = models.DateTimeField(null=True, blank=True)
+    #schedule_time = models.DateTimeField(null=True, blank=True)
     sent_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
