@@ -1,4 +1,3 @@
-<!-- templates/base.html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,100 +6,169 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}MailBurst{% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --bg-light: #ffffff;
-            --bg-secondary: #f3f4f6;
-            --text-primary: #111827;
-            --text-secondary: #4b5563;
-            --border-color: #e5e7eb;
+            --primary: #111827;
+            --primary-hover: #1f2937;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --bg-secondary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
         }
 
         body {
             background-color: var(--bg-light);
             color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
         }
 
         .sidebar {
-            background-color: var(--bg-secondary);
+            background-color: var(--bg-white);
             border-right: 1px solid var(--border-color);
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
         }
 
         .nav-link {
             color: var(--text-secondary);
             transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
         }
 
         .nav-link:hover,
         .nav-link.active {
             color: var(--primary);
-            background-color: var(--bg-light);
+            background-color: var(--bg-secondary);
         }
 
         .btn-primary {
             background-color: var(--primary);
             color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
         }
 
         .btn-primary:hover {
             background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .messages {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 50;
+            max-width: 24rem;
         }
 
         .card {
-            background-color: var(--bg-light);
+            background-color: var(--bg-white);
+            border-radius: 1rem;
             border: 1px solid var(--border-color);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .messages li {
+            padding: 1rem;
+            margin-top: 0.5rem;
+            border-radius: 0.5rem;
+            background-color: var(--bg-white);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.3s ease-out;
+            position: relative;
+        }
+
+        .message-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            color: var(--text-secondary);
+        }
+
+        .message-close:hover {
+            color: var(--text-primary);
         }
     </style>
 </head>
 
 <body>
     <div class="flex h-screen">
-        <!-- Sidebar -->
         <aside class="sidebar w-64 h-full flex flex-col">
-            <div class="p-4 border-b">
-                <h1 class="text-xl font-bold text-primary">MailBurst</h1>
+            <div class="p-6 border-b">
+                <h1 class="text-2xl font-bold text-primary">
+                    <i class="fas fa-paper-plane mr-2"></i>MailBurst
+                </h1>
             </div>
             <nav class="flex-1 p-4">
-                <ul class="space-y-2">
-                    <li><a href="{% url 'dashboard' %}" class="nav-link block px-4 py-2 rounded-lg">Dashboard</a></li>
-                    <li><a href="{% url 'create_campaign' %}" class="nav-link block px-4 py-2 rounded-lg">Send Email</a>
-                    </li>
-                    <li><a href="{% url 'schedule_email' %}" class="nav-link block px-4 py-2 rounded-lg">Schedule</a>
-                    </li>
-                    <li><a href="{% url 'email_template' %}" class="nav-link block px-4 py-2 rounded-lg">Templates</a>
-                    </li>
+                <ul>
+                    <li><a href="{% url 'dashboard' %}" class="nav-link">
+                            <i class="fas fa-chart-line"></i>Dashboard
+                        </a></li>
+                    <li><a href="{% url 'create_campaign' %}" class="nav-link">
+                            <i class="fas fa-envelope"></i>Send Email
+                        </a></li>
+                    <li><a href="{% url 'schedule_email' %}" class="nav-link">
+                            <i class="fas fa-clock"></i>Schedule
+                        </a></li>
+                    <li><a href="{% url 'email_template' %}" class="nav-link">
+                            <i class="fas fa-paint-brush"></i>Templates
+                        </a></li>
                 </ul>
             </nav>
-            <div class="p-4 border-t">
+            <div class="p-4 border-t bg-secondary">
                 {% if user.is_authenticated %}
-                <span class="text-sm">{{ user.email }}</span>
-                <a href="{% url 'logout' %}" class="text-sm text-red-500 ml-3">Logout</a>
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white">
+                        {{ user.email|first|upper }}
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-sm font-medium">{{ user.email }}</div>
+                        <a href="{% url 'logout' %}" class="text-xs text-red-500 hover:text-red-600">Logout</a>
+                    </div>
+                </div>
                 {% endif %}
             </div>
         </aside>
 
-        <!-- Main Content -->
         <main class="flex-1 overflow-y-auto">
-            <header class="bg-white border-b p-4">
-                <h2 class="text-xl">{% block header %}{% endblock %}</h2>
+            <header class="bg-white border-b p-6 sticky top-0">
+                <h2 class="text-2xl font-semibold">{% block header %}{% endblock %}</h2>
             </header>
             <div class="p-6">
                 {% block content %}{% endblock %}
             </div>
         </main>
     </div>
-    <div>
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-    </div>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="{% if message.tags %}{{ message.tags }}{% endif %} flex items-center gap-2">
+            <i class="fas fa-info-circle"></i>
+            {{ message }}
+            <button class="message-close" onclick="this.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 </body>
 
 </html>
