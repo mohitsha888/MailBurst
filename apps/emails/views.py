@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.core.mail import send_mail
 from datetime import datetime
 
 from mailburst import settings
 from .models import EmailCampaign
-#from django.http import HttpResponseBadRequest
 
 from django.core.mail import EmailMessage
 
