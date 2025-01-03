@@ -26,12 +26,3 @@ class EmailCampaign(models.Model):
     sent_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-class EmailTracker(models.Model):
-    campaign = models.ForeignKey(EmailCampaign, on_delete=models.CASCADE)
-    recipient = models.EmailField()
-    opened = models.BooleanField(default=False)
-    opened_at = models.DateTimeField(null=True, blank=True)
-    clicked = models.BooleanField(default=False)
-    clicked_at = models.DateTimeField(null=True, blank=True)
-    bounced = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
