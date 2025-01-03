@@ -45,3 +45,9 @@ node_modules/
 
 # Git
 .git/
+
+# account
+.env
+
+*.env
+.env.local
